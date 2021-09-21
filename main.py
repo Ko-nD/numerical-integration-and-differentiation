@@ -11,20 +11,19 @@ def get_integral_values_on_range(y_range, step: float):
     return step * y_sum
 
 
-def get_derivative_values_on_range(func_, x, step):
-    # формула двусторонней разности
-    # TODO: тут надо сделать, чтобы на вход приходили y_range и step
-    #  и пробежкой по индексам y_range высчитывалась производная
-    return (func_(x + step) - func_(x - step)) / (2 * step)
+def get_derivative_values_on_range(y_range, step):
+    diff_y_range = np.array([(y_range[i - 1] + y_range[i + 1]) for i in range(1, y_range.shape[0] - 1)])
+    # возвращает список значений производной
+    return diff_y_range / (2 * step) 
 
 
-def calc_integral_or_derivative(func_, a, b=None, step=0.1, mode='integral'):
+def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral'):
     x_range: np.ndarray = np.arange(a, b + step, step)
     y_range: np.ndarray = func_(x_range)
     if mode == 'integral':
         return get_integral_values_on_range(y_range, step)
     elif mode == 'derivative':
-        return get_derivative_values_on_range(func_, x=a, step=step)
+        return get_derivative_values_on_range(y_range, step)
     else:
         raise NotImplemented('Данная операция не поддерживается')
 
@@ -42,5 +41,5 @@ if __name__ == '__main__':
     print('Значение интеграла: ', i1)
 
     func = eval('lambda x:' + input('Введите функцию (аргумент x): '))
-    i1 = calc_integral_or_derivative(func, 0, mode='derivative')
-    print('Значение производной: ', i1)
+    i1 = calc_integral_or_derivative(func, -1, 1, 0.1, mode='derivative')
+    print('Значение производной: ', *i1)
