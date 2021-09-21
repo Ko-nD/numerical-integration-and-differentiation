@@ -23,6 +23,9 @@ def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral'):
     if mode == 'integral':
         return get_integral_values_on_range(y_range, step)
     elif mode == 'derivative':
+        # если функция - константа
+        if type(y_range == 'int'):
+            return 0
         return get_derivative_values_on_range(y_range, step)
     else:
         raise NotImplemented('Данная операция не поддерживается')
@@ -42,4 +45,4 @@ if __name__ == '__main__':
 
     func = eval('lambda x:' + input('Введите функцию (аргумент x): '))
     i1 = calc_integral_or_derivative(func, -1, 1, 0.1, mode='derivative')
-    print('Значение производной: ', *i1)
+    print('Значение производной: ', i1)
