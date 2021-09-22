@@ -3,7 +3,8 @@ import numpy as np
 
 def get_integral_values_on_range(y_range, step: float, len_x: int):
     if type(y_range == int):
-        return y_range * step * len_x
+        # len_x - 1 это учёт первого и последнего значения
+        return y_range * step * (len_x - 1)
     y_sum: float = y_range.sum()
     # обрабатываю так NaN и деление на два первого и последнего значения
     if not np.isnan(y_range)[0]:
