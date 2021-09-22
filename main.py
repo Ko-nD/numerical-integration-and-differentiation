@@ -23,9 +23,9 @@ def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral'):
     if mode == 'integral':
         return get_integral_values_on_range(y_range, step)
     elif mode == 'derivative':
-        # если функция - константа
+        # если функция - константа 
         if type(y_range == 'int'):
-            return 0
+            return y_range
         return get_derivative_values_on_range(y_range, step)
     else:
         raise NotImplemented('Данная операция не поддерживается')
