@@ -43,7 +43,7 @@ def show_legend(file_name, path=''):
 
 def safe_eval(fun):
     if fun == '/help':
-        show_legend('functions.txt')
+        show_legend('../functions.txt')
         return 0
     elif fun == '/exit':
         return 1

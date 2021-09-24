@@ -1,18 +1,18 @@
-from calculations import calc_integral_or_derivative
-import tests
+from src.calculations import calc_integral_or_derivative
+from src import tests
 
-from ui import *
+from src.ui import *
 
 
 def main():
-    show_legend('functions.txt')
+    show_legend('../functions.txt')
     mode = get_value('mode')
     step = get_value('step')
     inf = get_value('inf')
     while True:
         fun = safe_eval(get_value('fun'))
         if fun == 0 or fun == -1:
-            show_legend('functions.txt')
+            show_legend('../functions.txt')
             continue
         elif fun == 1:
             break
