@@ -29,12 +29,13 @@ def main():
             else:
                 show_graphic(x, y)
         except NotImplemented as handled_exception:
-            print(handled_exception.message)
+            handle_exception(handled_exception)
 
 
 if __name__ == '__main__':
     try:
         tests.test_integral(lambda a, b, c, d: calc_integral_or_derivative(a, b, c, d, 'integral'))
-    except AssertionError:
-        print('Будьте осторожны при использовании калькулятора - он может выдавать неверные результаты')
+    except AssertionError as handled_exception:
+        handle_exception(handled_exception,
+                         'Будьте осторожны при использовании калькулятора - он может выдавать неверные результаты')
     main()

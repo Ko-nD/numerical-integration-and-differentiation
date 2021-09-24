@@ -31,6 +31,10 @@ def return_calculated_value(y, mode):
     print(f'Расчитанное значение {"интеграла" if mode == "integral" else "производной"} равно {y}')
 
 
+def handle_exception(exception, custom_message=None):
+    print(custom_message if custom_message else exception.message)
+
+
 def show_legend(file_name, path=''):
     with open(f'{path}{file_name}', 'r') as r_file:
         for line in r_file:
