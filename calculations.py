@@ -28,9 +28,9 @@ def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral', inf=10e5
     y_range: np.ndarray = func_(x_range)
     y_range += np.array([0 if y_range[i] < inf else np.inf for i in range(len(y_range))])
     if mode == 'integral':
-        return get_integral_values_on_range(y_range, step, len_x)
+        return x_range, get_integral_values_on_range(y_range, step, len_x)
     elif mode == 'derivative':
-        return get_derivative_values_on_range(y_range, step, len_x)
+        return x_range, get_derivative_values_on_range(y_range, step, len_x)
     else:
         raise NotImplemented('Данная операция не поддерживается')
 
