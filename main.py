@@ -19,6 +19,19 @@ def safe_eval(fun):
     return eval('lambda x:' + fun)
 
 
+def show_graphic(x, y):
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines['left'].set_position('center')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+    plt.plot(x, y, 'r')
+    plt.show()
+
+
 def main():
     show_legend('functions.txt')
     while True:
@@ -37,16 +50,7 @@ def main():
             if mode == 'integral':
                 print(y)
             else:
-                fig = plt.figure()
-                ax = fig.add_subplot(1, 1, 1)
-                ax.spines['left'].set_position('center')
-                ax.spines['bottom'].set_position('zero')
-                ax.spines['right'].set_color('none')
-                ax.spines['top'].set_color('none')
-                ax.xaxis.set_ticks_position('bottom')
-                ax.yaxis.set_ticks_position('left')
-                plt.plot(x, y, 'r')
-                plt.show()
+                show_graphic(x, y)
         except NotImplemented as handled_exception:
             print(handled_exception.message)
 
