@@ -1,7 +1,6 @@
-from src.calculations import calc_integral_or_derivative
-from src import tests
-
-from src.ui import *
+from calculations import calc_integral_or_derivative
+import tests
+from ui import *
 
 
 def main(ui: UI):
@@ -22,14 +21,11 @@ def main(ui: UI):
             inf = ui.get_value('inf')
         a = ui.get_value('a')
         b = ui.get_value('b')
-        try:
-            x, y = calc_integral_or_derivative(fun, a, b, step, mode, inf)
-            if mode == 'integral':
-                ui.return_calculated_value(y, mode)
-            else:
-                ui.show_graphic(x, y)
-        except NotImplemented as handled_exception:
-            ui.handle_exception(handled_exception)
+        x, y = calc_integral_or_derivative(fun, a, b, step, mode, inf)
+        if mode == 'integral':
+            ui.return_calculated_value(y, mode)
+        else:
+            ui.show_graphic(x[1:-1], y)
 
 
 if __name__ == '__main__':
@@ -39,7 +35,7 @@ if __name__ == '__main__':
         'b': 'Верхняя граница интегрирования/дифференцирования',
         'inf': 'Значение, считающееся бесконечностью',
         'step': 'Шаг интегрирования/дифференцирования',
-        'fun': 'Функция, по которой необходимо произвести расчет'
+        'fun': 'Функция (от х), по которой необходимо произвести расчет'
     })
     try:
         tests.test_integral(lambda a, b, c, d: calc_integral_or_derivative(a, b, c, d, 'integral'))

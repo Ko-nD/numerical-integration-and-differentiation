@@ -21,7 +21,7 @@ def get_integral_values_on_range(y_range, step: float, len_x: int):
 def get_derivative_values_on_range(y_range, step: float, len_x: int):
     if type(y_range) == int:
         return np.array([0] * len_x)
-    diff_y_range = np.array([(y_range[i + 1] - y_range[i - 1]) for i in range(1, y_range.shape[0] - 1)])
+    diff_y_range = np.array([np.nansum([y_range[i + 1], - y_range[i - 1]]) for i in range(1, y_range.shape[0] - 1)])
     # возвращает список значений производной
     return diff_y_range / (2 * step)
 
@@ -37,6 +37,27 @@ def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral', inf=10e5
         return x_range, get_derivative_values_on_range(y_range, step, len_x)
     else:
         raise NotImplemented('Данная операция не поддерживается')
+
+
+def calc(func_, a, b, step=0.1, mode='integral', inf=10e5):
+    def calc_cum_val(cum_val, a, b):
+        val = calc_integral_or_derivative(func_, a, b, step, mode, inf)
+        if mode == 'integral':
+            return cum_val + val
+        else:
+            return np.concatenate(cum_val, val)
+
+    length = abs(b - a) / step
+    cum_val = 0 if mode == 'integral' else np.array([])
+    i = a
+    while length >= 1000:
+        cum_val = calc_cum_val(cum_val, i, i+step*1000)
+        length -= 1000
+        i += step * 1000
+    if length > 0:
+        cum_val = calc_cum_val(cum_val, i, b)
+    return cum_val
+
 
 
 def get_integral_function(func_, step=0.1, inf=10e5):
