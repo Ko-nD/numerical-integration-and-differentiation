@@ -11,7 +11,8 @@ def main():
     inf = get_value('inf')
     while True:
         fun = safe_eval(get_value('fun'))
-        if fun == 0:
+        if fun == 0 or fun == -1:
+            show_legend('functions.txt')
             continue
         elif fun == 1:
             break

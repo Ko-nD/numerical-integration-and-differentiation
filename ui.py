@@ -45,7 +45,14 @@ def safe_eval(fun):
         return 1
     elif fun == '/edit':
         return 2
-    return eval('lambda x:' + fun)
+    try:
+        return eval('lambda x:' + fun)
+    except SyntaxError:
+        print('Вы ошиблись в синтаксисе функции!')
+        return -1
+    except:
+        print('Ошибка ввода')
+        return -1
 
 
 def show_graphic(x, y):
