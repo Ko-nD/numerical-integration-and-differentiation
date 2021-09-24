@@ -1,50 +1,26 @@
-import matplotlib.pyplot as plt
-
 from calculations import calc_integral_or_derivative
 import tests
 
-
-def show_legend(file_name, path=''):
-    with open(f'{path}{file_name}', 'r') as r_file:
-        for line in r_file:
-            print(line, end='')
-
-
-def safe_eval(fun):
-    if fun == '/help':
-        show_legend('functions.txt')
-        return 0
-    elif fun == '/exit':
-        return 1
-    return eval('lambda x:' + fun)
-
-
-def show_graphic(x, y):
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.spines['left'].set_position('center')
-    ax.spines['bottom'].set_position('zero')
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
-    plt.plot(x, y, 'r')
-    plt.show()
+from ui import *
 
 
 def main():
     show_legend('functions.txt')
+    mode = get_value('mode')
+    step = get_value('step')
+    inf = get_value('inf')
     while True:
-        fun = safe_eval(input())
+        fun = safe_eval(get_value('fun'))
         if fun is 0:
             continue
         elif fun is 1:
             break
-        mode = input()
-        a = float(input())
-        b = float(input())
-        step = float(input())
-        inf = float(input())
+        elif fun is 2:
+            mode = get_value('mode')
+            step = get_value('step')
+            inf = get_value('inf')
+        a = get_value('a')
+        b = get_value('b')
         try:
             x, y = calc_integral_or_derivative(fun, a, b, step, mode, inf)
             if mode == 'integral':
