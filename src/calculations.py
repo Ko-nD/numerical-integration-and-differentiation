@@ -53,6 +53,8 @@ def calc(func_, a, b, step=0.1, mode='integral', inf=10e5):
 
 def calc_integral_or_derivative(func_, a, b, step=0.1, mode='integral', inf=10e5):
     x_range: np.ndarray = np.arange(a, b + step, step)
+    if mode == 'derivative':
+        x_range = np.concatenate((a - step, x_range, b + step), axis=None)
     len_x = x_range.shape[0]
     y_range: np.ndarray = func_(x_range)
     if not type(y_range == int):
