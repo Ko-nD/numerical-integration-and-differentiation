@@ -27,6 +27,10 @@ def get_value(name):
         return float(input())
 
 
+def return_calculated_value(y, mode):
+    print(f'Расчитанное значение {"интеграла" if mode == "integral" else "производной"} равно {y}')
+
+
 def show_legend(file_name, path=''):
     with open(f'{path}{file_name}', 'r') as r_file:
         for line in r_file:
