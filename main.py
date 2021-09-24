@@ -11,11 +11,11 @@ def main():
     inf = get_value('inf')
     while True:
         fun = safe_eval(get_value('fun'))
-        if fun is 0:
+        if fun == 0:
             continue
-        elif fun is 1:
+        elif fun == 1:
             break
-        elif fun is 2:
+        elif fun == 2:
             mode = get_value('mode')
             step = get_value('step')
             inf = get_value('inf')
