@@ -47,8 +47,8 @@ def main():
                 ax.yaxis.set_ticks_position('left')
                 plt.plot(x, y, 'r')
                 plt.show()
-        except Exception:
-            print('Возникла ошибка при расчете параметра')
+        except NotImplemented as handled_exception:
+            print(handled_exception.message)
 
 
 if __name__ == '__main__':
