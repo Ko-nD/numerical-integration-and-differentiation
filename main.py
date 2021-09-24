@@ -25,7 +25,7 @@ def main():
         try:
             x, y = calc_integral_or_derivative(fun, a, b, step, mode, inf)
             if mode == 'integral':
-                return_calculated_value(y)
+                return_calculated_value(y, mode)
             else:
                 show_graphic(x, y)
         except NotImplemented as handled_exception:
