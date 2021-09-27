@@ -10,7 +10,7 @@ class UI:
         self.values = values_map
 
     def ask_value(self, name):
-        print(f'Введите значение {self.values[name]}')
+        print(f'Введите {self.values[name]}:')
 
     def get_value(self, name):
         self.ask_value(name)
