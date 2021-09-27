@@ -1,6 +1,6 @@
-from calculations import calc
+from .calculations import calc
 import tests
-from ui import *
+from .ui import *
 
 
 def main(ui: UI):
