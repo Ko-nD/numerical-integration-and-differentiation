@@ -1,6 +1,6 @@
-from .calculations import calc
+from calculations import calc
 import tests
-from .ui import *
+from ui import *
 
 
 def main(ui: UI):
@@ -38,10 +38,10 @@ if __name__ == '__main__':
         'step': 'Шаг интегрирования/дифференцирования',
         'fun': 'Функция (от х), по которой необходимо произвести расчет'
     })
-    try:
-        tests.test_integral(lambda a, b, c, d: calc(a, b, c, d, 'integral'))
-    except AssertionError as handled_exception:
-        ui.handle_exception(handled_exception,
-                            'Будьте осторожны при использовании калькулятора - он может выдавать неверные результаты')
+    # try:
+    tests.test_integral(lambda a, b, c, d: calc(a, b, c, d, 'integral'))
+    # except AssertionError as handled_exception:
+    #     ui.handle_exception(handled_exception,
+    #                         'Будьте осторожны при использовании калькулятора - он может выдавать неверные результаты')
 
     main(ui)

@@ -3,10 +3,10 @@
 """
 
 import numpy as np
-from .aspects.calc_interceptors import batched_func
+from aspects.calc_interceptors import batched_func
 
 
-@batched_func
+@batched_func()
 def get_integral_values_on_range(y_range, step: float, len_x: int) -> float:
     if type(y_range) == int:
         # len_x - 1 это учёт первого и последнего значения
@@ -20,7 +20,7 @@ def get_integral_values_on_range(y_range, step: float, len_x: int) -> float:
     return step * y_sum
 
 
-@batched_func(operation=lambda a, x: np.concatenate(a, x))
+@batched_func(operation=lambda a, x: np.concatenate(a, x), init=np.array([]))
 def get_derivative_values_on_range(y_range, step: float, len_x: int) -> np.ndarray:
     if type(y_range) == int:
         return np.array([0] * len_x)
@@ -29,12 +29,12 @@ def get_derivative_values_on_range(y_range, step: float, len_x: int) -> np.ndarr
     return diff_y_range / (2 * step)
 
 
-def calc(func_, a, b, step=0.1, mode='integral', inf=10e5):
+def calc(fun, a, b, step=0.1, mode='integral', inf=10e5):
     x_range: np.ndarray = np.arange(a, b + step, step)
     if mode == 'derivative':
         x_range = np.concatenate((a - step, x_range, b + step), axis=None)
     len_x = x_range.shape[0]
-    y_range: np.ndarray = func_(x_range)
+    y_range: np.ndarray = fun(x_range)
     if not type(y_range == int):
         y_range += np.array([0 if y_range[i] < inf else np.inf for i in range(len(y_range))])
     if mode == 'integral':
@@ -45,5 +45,9 @@ def calc(func_, a, b, step=0.1, mode='integral', inf=10e5):
         raise NotImplemented('Данная операция не поддерживается')
 
 
-def get_integral_function(func_, step=0.1, inf=10e5):
-    return lambda x: calc(func_, 0, x, step=step, inf=inf)
+def get_derivative_function(fun, step=0.1, inf=10e5):
+    return lambda x: calc(fun, x, x, step=step, inf=inf)
+
+
+def get_integral_function(fun, step=0.1, inf=10e5):
+    return lambda x: calc(fun, 0, x, step=step, inf=inf)
