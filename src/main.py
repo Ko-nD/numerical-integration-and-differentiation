@@ -1,6 +1,31 @@
-from calculations import calc
+import numpy as np
+
+from calculations import calc, get_integral_function, get_derivative_function
 import tests
 from ui import *
+
+
+ui_names = {
+        'mode': 'Режим расчетов (integral/derivative)',
+        'a': 'Нижняя граница интегрирования/дифференцирования',
+        'b': 'Верхняя граница интегрирования/дифференцирования',
+        'inf': 'Значение, считающееся бесконечностью',
+        'step': 'Шаг интегрирования/дифференцирования',
+        'fun': 'Функция (от х), по которой необходимо произвести расчет'
+}
+
+ui_funcs = {
+    'sin': np.sin,
+    'cos': np.cos,
+    'e': np.exp,
+    'log': np.log,
+    'tg': np.tan,
+    'asin': np.arcsin,
+    'acos': np.arccos,
+    'atg': np.arctan,
+    'integral': get_integral_function,
+    'derivative': get_derivative_function
+}
 
 
 def main(ui: UI):
@@ -22,7 +47,7 @@ def main(ui: UI):
         a = ui.get_value('a')
         b = ui.get_value('b')
         if mode == 'integral':
-            y = calc(fun, a, b, step, mode, inf)
+            _, y = calc(fun, a, b, step, mode, inf)
             ui.return_calculated_value(y, mode)
         else:
             x, y = calc(fun, a, b, step, mode, inf)
@@ -30,18 +55,5 @@ def main(ui: UI):
 
 
 if __name__ == '__main__':
-    ui = UI({
-        'mode': 'Режим расчетов (integral/derivative)',
-        'a': 'Нижняя граница интегрирования/дифференцирования',
-        'b': 'Верхняя граница интегрирования/дифференцирования',
-        'inf': 'Значение, считающееся бесконечностью',
-        'step': 'Шаг интегрирования/дифференцирования',
-        'fun': 'Функция (от х), по которой необходимо произвести расчет'
-    })
-    # try:
-    tests.test_integral(lambda a, b, c, d: calc(a, b, c, d, 'integral'))
-    # except AssertionError as handled_exception:
-    #     ui.handle_exception(handled_exception,
-    #                         'Будьте осторожны при использовании калькулятора - он может выдавать неверные результаты')
-
+    ui = UI(ui_names, ui_funcs)
     main(ui)

@@ -5,7 +5,7 @@
 import numpy as np
 
 
-def equals(a, b, accuracy=0.001):
+def equals(a, b, accuracy=0.1):
     return abs(a-b) < accuracy
 
 

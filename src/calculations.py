@@ -29,7 +29,7 @@ def get_derivative_values_on_range(y_range, step: float, len_x: int) -> np.ndarr
     return diff_y_range / (2 * step)
 
 
-def calc(fun, a, b, step=0.1, mode='integral', inf=10e5):
+def calc(fun, a, b, step=0.001, mode='integral', inf=10e5):
     x_range: np.ndarray = np.arange(a, b + step, step)
     if mode == 'derivative':
         x_range = np.concatenate((a - step, x_range, b + step), axis=None)

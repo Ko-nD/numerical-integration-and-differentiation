@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 
 
 class UI:
-    def __init__(self, values_map):
+    def __init__(self, values_map, funcs):
         self.values = values_map
+        self.funcs = funcs
 
     def ask_value(self, name):
         print(f'Введите {self.values[name]}:')
@@ -29,12 +30,11 @@ class UI:
 
     @staticmethod
     def show_legend(file_name, path=''):
-        with open(f'{path}{file_name}', 'r') as r_file:
+        with open(f'{path}{file_name}', 'r', encoding='utf-8') as r_file:
             for line in r_file:
                 print(line, end='')
 
-    @staticmethod
-    def safe_eval(fun):
+    def safe_eval(self, fun):
         if fun == '/help':
             UI.show_legend('../functions.txt')
             return 0
@@ -43,7 +43,7 @@ class UI:
         elif fun == '/edit':
             return 2
         try:
-            return eval('lambda x:' + fun)
+            return eval('lambda x:' + fun, self.funcs)
         except SyntaxError:
             print('Вы ошиблись в синтаксисе функции!')
             return -1
