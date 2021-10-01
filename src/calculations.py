@@ -20,7 +20,7 @@ def get_integral_values_on_range(y_range, step: float, len_x: int) -> float:
     return step * y_sum
 
 
-@batched_func(operation=lambda a, x: np.concatenate(a, x), init=np.array([]))
+@batched_func(operation=lambda a, x: np.hstack((a, x)), init=np.array([]))
 def get_derivative_values_on_range(y_range, step: float, len_x: int) -> np.ndarray:
     if type(y_range) == int:
         return np.array([0] * len_x)
@@ -32,7 +32,7 @@ def get_derivative_values_on_range(y_range, step: float, len_x: int) -> np.ndarr
 def calc(fun, a, b, step=0.001, mode='integral', inf=10e5):
     x_range: np.ndarray = np.arange(a, b + step, step)
     if mode == 'derivative':
-        x_range = np.concatenate((a - step, x_range, b + step), axis=None)
+        x_range = np.hstack((a - step, x_range, b + step))
     len_x = x_range.shape[0]
     y_range: np.ndarray = fun(x_range)
     if not type(y_range == int):

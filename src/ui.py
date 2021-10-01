@@ -61,5 +61,5 @@ class UI:
         ax.spines['top'].set_color('none')
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_ticks_position('left')
-        plt.plot(x, y, 'r')
+        plt.plot(x, y, c='r', marker='o')
         plt.show()
